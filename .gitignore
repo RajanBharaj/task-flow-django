@@ -1,0 +1,10 @@
+# .gitignore — files that should never be committed to version control
+
+__pycache__/
+*.pyc
+.env
+venv/
+env/
+*.sqlite3
+.DS_Store
+staticfiles/

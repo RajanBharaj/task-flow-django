@@ -1,0 +1,36 @@
+<!-- tasks/templates/tasks/task_list.html -->
+<!--
+  The full page, loaded once on first visit. Pulls in HTMX from a CDN —
+  no npm install, no bundler, no separate frontend build step needed.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow</title>
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<body style="max-width: 480px; margin: 2rem auto; font-family: sans-serif;">
+  <h1>TaskFlow</h1>
+
+  <!--
+    hx-post:   where to send the form on submit
+    hx-target: which element on the page gets replaced with the response
+    hx-swap:   how to insert it ("outerHTML" replaces the target element itself)
+
+    This attribute-based approach replaces the onSubmit + fetch + setState
+    pattern you'd write in React — the browser handles it declaratively.
+  -->
+  <form hx-post="{% url 'task_create' %}"
+        hx-target="#task-list-container"
+        hx-swap="outerHTML">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="What needs doing?" required
+           style="padding: 0.5rem; margin-right: 0.5rem;">
+    <button type="submit">Add Task</button>
+  </form>
+
+  {% include "tasks/task_list_partial.html" %}
+</body>
+</html>

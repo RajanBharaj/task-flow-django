@@ -1,0 +1,16 @@
+<!-- tasks/templates/tasks/task_list_partial.html -->
+<!--
+  A reusable fragment — just the <ul>. This is what task_create() returns,
+  and what HTMX swaps into #task-list-container. It's also {% include %}'d
+  by the full page above, so the "what a task looks like" markup only
+  ever lives in this one file.
+-->
+<ul id="task-list-container">
+  {% for task in tasks %}
+    <li style="text-decoration: {% if task.is_complete %}line-through{% else %}none{% endif %};">
+      {{ task.title }}
+    </li>
+  {% empty %}
+    <li>No tasks yet — add one above.</li>
+  {% endfor %}
+</ul>
